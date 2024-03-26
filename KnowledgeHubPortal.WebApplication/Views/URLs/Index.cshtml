@@ -1,0 +1,37 @@
+﻿@model List<KnowledgeHubPortal.WebApplication.Models.Domain.Entities.URL>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row">
+    <div class="col-9">
+        <h2>URL List<span> - @Model.Count</span></h2>
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>@TempData["Message"]</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+    </div>
+</div>
+<table class="table table-bordered table-hover">
+    <tr>
+        <td>URL ID</td>
+        <td>Title</td>
+        <td>Description</td>
+        <td>Category ID</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.UrlID</td>
+            <td>@item.UrlTitle</td>
+            <td>@item.Url</td>
+            <td>@item.CategoryID</td>
+        </tr>
+    }
+</table>

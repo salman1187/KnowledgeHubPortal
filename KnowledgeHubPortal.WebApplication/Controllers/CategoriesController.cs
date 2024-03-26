@@ -24,16 +24,18 @@ namespace KnowledgeHubPortal.WebApplication.Controllers
         [HttpPost]
         public ActionResult AddCategory(Category category)
         {
-            if (!string.IsNullOrEmpty(category.CategoryName) && !string.IsNullOrEmpty(category.CategoryDescription))
+            if (!ModelState.IsValid)
             {
-                // If the model state is valid, add the category to the database and redirect to the Index action
-                KnowledgeHubDbContext db = new KnowledgeHubDbContext();
-                db.Categories.Add(category);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View();
             }
 
-            return View();
+            KnowledgeHubDbContext db = new KnowledgeHubDbContext();
+            db.Categories.Add(category);
+            db.SaveChanges();
+            string msg = $"{category.CategoryName} has been created successfully!!";
+            TempData["Message"] = msg;
+            return RedirectToAction("Index");
+            
         }
         public ActionResult EditCategory(int id)
         {
@@ -48,26 +50,21 @@ namespace KnowledgeHubPortal.WebApplication.Controllers
         [HttpPost]
         public ActionResult EditCategory(Category category)
         {
-            if (category == null)
+            if (!ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View();
             }
 
-            using (KnowledgeHubDbContext db = new KnowledgeHubDbContext())
-            {
-                Category c = db.Categories.Find(category.CategoryID);
-                if (c == null)
-                {
-                    return HttpNotFound();
-                }
+            KnowledgeHubDbContext db = new KnowledgeHubDbContext();
+            Category c = db.Categories.Find(category.CategoryID);
+            // Update the category properties
+            c.CategoryName = category.CategoryName;
+            c.CategoryDescription = category.CategoryDescription;
 
-                // Update the category properties
-                c.CategoryName = category.CategoryName;
-                c.CategoryDescription = category.CategoryDescription;
+            db.SaveChanges();
 
-                db.SaveChanges();
-            }
-
+            string msg = $"{category.CategoryName} has been edited successfully!!";
+            TempData["Message"] = msg;
             return RedirectToAction("Index");
         }
         public ActionResult DeleteCategory(int id)
@@ -87,6 +84,9 @@ namespace KnowledgeHubPortal.WebApplication.Controllers
             Category c = db.Categories.Find(category.CategoryID);
             db.Categories.Remove(c);
             db.SaveChanges();
+
+            string msg = $"{c.CategoryName} has been deleted successfully!!";
+            TempData["Message"] = msg;
             return RedirectToAction("Index");
         }
     }

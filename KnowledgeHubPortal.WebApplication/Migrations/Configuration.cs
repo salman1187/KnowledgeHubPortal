@@ -9,7 +9,8 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             ContextKey = "KnowledgeHubPortal.WebApplication.Models.Data.KnowledgeHubDbContext";
         }
 
