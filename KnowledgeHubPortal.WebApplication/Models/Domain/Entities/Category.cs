@@ -17,5 +17,6 @@ namespace KnowledgeHubPortal.WebApplication.Models.Domain
         [MinLength(10,ErrorMessage = "Enter atleast 10 characters")]
         [MaxLength(500)]
         public string CategoryDescription { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

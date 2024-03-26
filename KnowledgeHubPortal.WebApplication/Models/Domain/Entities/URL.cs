@@ -15,7 +15,6 @@ namespace KnowledgeHubPortal.WebApplication.Models.Domain.Entities
         public string UrlTitle { get; set; }
         [Required]
         [MinLength(2, ErrorMessage = "Enter atleast 2 characters")]
-        [MaxLength(100)]
         [Url]
         public string Url { get; set; }
         [Required]
@@ -26,13 +25,19 @@ namespace KnowledgeHubPortal.WebApplication.Models.Domain.Entities
         public virtual Category TheCategory { get; set; } 
         public string PostedBy { get; set; }   
         public DateTime DatePosted { get; set; }
+        public bool IsApproved { get; set; }
 
     }
     public class URLCategoryViewModel
     {
         public URL URLModel { get; set; }
         public List<Category> CategoryModel { get; set; }
-    } 
+    }
+    public class URLCategoryListViewModel
+    {
+        public List<URL> URLList { get; set; }
+        public List<Category> CategoryList { get; set; }
+    }
 
 }
 

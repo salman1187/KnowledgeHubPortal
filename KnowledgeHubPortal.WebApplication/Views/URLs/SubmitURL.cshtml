@@ -16,14 +16,17 @@
                 <div class="form-group">
                     <label for="UrlTitle">URL Title:</label>
                     <input type="text" class="form-control" id="UrlTitle" name="URLModel.UrlTitle" value="">
+                    @Html.ValidationMessageFor(model => model.URLModel.UrlTitle)
                 </div>
                 <div class="form-group">
                     <label for="Url">URL:</label>
                     <input type="text" class="form-control" id="Url" name="URLModel.Url" value="">
+                    @Html.ValidationMessageFor(model => model.URLModel.Url)
                 </div>
                 <div class="form-group">
                     <label for="UrlDescription">URL Description:</label>
                     <textarea class="form-control" id="UrlDescription" name="URLModel.UrlDescription"></textarea>
+                    @Html.ValidationMessageFor(model => model.URLModel.UrlDescription)
                 </div>
                 <div class="form-group">
                     <label for="Category">Category:</label>

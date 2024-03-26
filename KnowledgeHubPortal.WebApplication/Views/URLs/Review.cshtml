@@ -1,0 +1,101 @@
+﻿@model IEnumerable<KnowledgeHubPortal.WebApplication.Models.Domain.Entities.URL>
+
+@{
+    ViewBag.Title = "Review";
+}
+
+<h2>Review Articles</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>@TempData["Message"]</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (Model.Count() == 0)
+{
+    <div class="alert alert-info" role="alert">
+        <strong>No Articles to review!</strong>
+    </div>
+}
+else
+{
+    <form>
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    Review
+                </th>
+                <th>
+                    URL Title
+                </th>
+                <th>
+                    Posted By
+                </th>
+                <th>
+                    Date Posted
+                </th>
+                <th>
+                    Category Name
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" name="UrlIDs" value="@item.UrlID" />
+                    </td>
+                    <td>
+                        <a href="@item.Url" target="_blank">@item.UrlTitle</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostedBy)
+                    </td>
+                    <td>
+                        @CalculateTimeElapsed(item.DatePosted)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TheCategory.CategoryName)
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <input class="btn btn-info" formaction="@Url.Action("Approve", "URLs")" type="submit" name="btn1" value="Approve" />
+        <input class="btn btn-danger" formaction="@Url.Action("Reject", "URLs")" type="submit" name="btn2" value="Reject" />
+    </form>
+}
+
+@functions {
+    public string CalculateTimeElapsed(DateTime datePosted)
+    {
+        TimeSpan timeSincePosted = DateTime.Now - datePosted;
+
+        if (timeSincePosted.TotalHours < 1)
+        {
+            return $"{(int)timeSincePosted.TotalMinutes} minutes ago";
+        }
+        else if (timeSincePosted.TotalDays < 1)
+        {
+            return $"{(int)timeSincePosted.TotalHours} hours ago";
+        }
+        else if (timeSincePosted.TotalDays < 7)
+        {
+            return $"{(int)timeSincePosted.TotalDays} days ago";
+        }
+        else if (timeSincePosted.TotalDays < 365)
+        {
+            int weeks = (int)(timeSincePosted.TotalDays / 7);
+            return $"{weeks} {(weeks == 1 ? "week" : "weeks")} ago";
+        }
+        else
+        {
+            int years = (int)(timeSincePosted.TotalDays / 365);
+            return $"{years} {(years == 1 ? "year" : "years")} ago";
+        }
+    }
+}

@@ -11,11 +11,11 @@ namespace KnowledgeHubPortal.WebApplication.Controllers
 {
     public class CategoriesController : Controller
     {
+        IKHPortalRepository repo = new KHPortalRepository();  
         // GET: Categories
         public ActionResult Index()
         {
-            KnowledgeHubDbContext db = new KnowledgeHubDbContext();
-            return View(db.Categories.ToList());
+            return View(repo.GetCategories());
         }
         public ActionResult AddCategory()
         {
@@ -29,9 +29,7 @@ namespace KnowledgeHubPortal.WebApplication.Controllers
                 return View();
             }
 
-            KnowledgeHubDbContext db = new KnowledgeHubDbContext();
-            db.Categories.Add(category);
-            db.SaveChanges();
+            repo.AddCategory(category);
             string msg = $"{category.CategoryName} has been created successfully!!";
             TempData["Message"] = msg;
             return RedirectToAction("Index");
@@ -39,8 +37,7 @@ namespace KnowledgeHubPortal.WebApplication.Controllers
         }
         public ActionResult EditCategory(int id)
         {
-            KnowledgeHubDbContext db = new KnowledgeHubDbContext();
-            Category category = db.Categories.Find(id);
+            Category category = repo.GetCategoryByID(id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -55,13 +52,7 @@ namespace KnowledgeHubPortal.WebApplication.Controllers
                 return View();
             }
 
-            KnowledgeHubDbContext db = new KnowledgeHubDbContext();
-            Category c = db.Categories.Find(category.CategoryID);
-            // Update the category properties
-            c.CategoryName = category.CategoryName;
-            c.CategoryDescription = category.CategoryDescription;
-
-            db.SaveChanges();
+            repo.EditCategoryByID(category.CategoryID, category);
 
             string msg = $"{category.CategoryName} has been edited successfully!!";
             TempData["Message"] = msg;
@@ -69,8 +60,7 @@ namespace KnowledgeHubPortal.WebApplication.Controllers
         }
         public ActionResult DeleteCategory(int id)
         {
-            KnowledgeHubDbContext db = new KnowledgeHubDbContext();
-            Category category = db.Categories.Find(id);
+            Category category = repo.GetCategoryByID(id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -80,10 +70,8 @@ namespace KnowledgeHubPortal.WebApplication.Controllers
         [HttpPost]
         public ActionResult DeleteCategory(Category category)
         {
-            KnowledgeHubDbContext db = new KnowledgeHubDbContext();
-            Category c = db.Categories.Find(category.CategoryID);
-            db.Categories.Remove(c);
-            db.SaveChanges();
+            Category c = repo.GetCategoryByID(category.CategoryID);
+            repo.DeleteCategoryByID(category.CategoryID);
 
             string msg = $"{c.CategoryName} has been deleted successfully!!";
             TempData["Message"] = msg;

@@ -186,9 +186,13 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Data\KHPortalRepository.cs" />
     <Compile Include="Models\Data\KnowledgeHubPortalDbContext.cs" />
+    <Compile Include="Models\Data\NotificationEmail.cs" />
     <Compile Include="Models\Domain\Entities\Category.cs" />
     <Compile Include="Models\Domain\Entities\URL.cs" />
+    <Compile Include="Models\Domain\IKHPortalRepository.cs" />
+    <Compile Include="Models\Domain\INotificationMedium.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -271,6 +275,7 @@
     <Content Include="Views\Categories\DeleteCategory.cshtml" />
     <Content Include="Views\URLs\SubmitURL.cshtml" />
     <Content Include="Views\URLs\Index.cshtml" />
+    <Content Include="Views\URLs\Review.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
