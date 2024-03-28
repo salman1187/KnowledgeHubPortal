@@ -4,7 +4,23 @@
     ViewBag.Title = "Index";
 }
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="editModalContent">
+            <!-- Partial view content for deletion will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="deleteModalContent">
+            <!-- Partial view content for deletion will be loaded here -->
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-6">
@@ -36,14 +52,14 @@
                     <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
                     <p class="card-text">@item.CategoryDescription</p>
                     <div class="mt-auto">
-                        <a href="@Url.Action("EditCategory", "Categories", new { id = item.CategoryID })" class="btn btn-primary">Edit</a>
-                        <a href="@Url.Action("DeleteCategory", "Categories", new { id = item.CategoryID })" class="btn btn-danger">Delete</a>
+                        <a href="@Url.Action("EditCategory", "Categories", new { id = item.CategoryID })" class="btn btn-primary edit-category">Edit</a>
+                        <a href="@Url.Action("DeleteCategory", "Categories", new { id = item.CategoryID })" class="btn btn-danger delete-category">Delete</a>
                     </div>
                 </div>
             </div>
         </div>
-
     }
+
 </div>
 
 <script>
@@ -61,3 +77,59 @@
         });
     });
 </script>
+
+<!-- Place this script block in your view or layout -->
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Function to open the EditCategory action in a modal
+            $('.edit-category').click(function (e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+
+                $('#editModalContent').load(url, function () {
+                    $('#editModal').modal('show');
+                });
+            });
+
+            // Function to open the DeleteCategory action in a modal
+            $('.delete-category').click(function (e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+
+                $('#deleteModalContent').load(url, function () {
+                    $('#deleteModal').modal('show');
+                });
+            });
+
+            // Event handler for "Save Changes" button in edit modal
+            $('#editModal').on('click', '#saveChangesBtn', function () {
+                // Submit the form
+                $('#editCategoryForm').submit();
+            });
+
+            // Event handler for "Cancel" button in edit modal
+            $('#editModal').on('click', '.btn-secondary', function () {
+                // Close the modal
+                $('#editModal').modal('hide');
+            });
+
+            // Event handler for "X" button in edit modal
+            $('#editModal').on('click', '.close', function () {
+                // Close the modal
+                $('#editModal').modal('hide');
+            });
+
+            
+            $('#deleteModal').on('click', '.btn-secondary', function () {
+                // Close the modal
+                $('#deleteModal').modal('hide');
+            });
+
+            $('#deleteModal').on('click', '.close', function () {
+                // Close the modal
+                $('#deleteModal').modal('hide');
+            });
+        });
+    </script>
+}

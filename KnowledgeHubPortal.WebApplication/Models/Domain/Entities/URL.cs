@@ -38,6 +38,5 @@ namespace KnowledgeHubPortal.WebApplication.Models.Domain.Entities
         public List<URL> URLList { get; set; }
         public List<Category> CategoryList { get; set; }
     }
-
 }
 

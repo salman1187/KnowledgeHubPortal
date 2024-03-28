@@ -6,6 +6,14 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <style>
+        /* Adjust font size and padding for navbar links */
+        .navbar-nav .nav-link {
+            font-size: 0.84rem; /* Decrease font size */
+            padding: 0.4rem 0.7rem; /* Adjust padding */
+        }
+    </style>
+
 
 </head>
 <body>
@@ -21,10 +29,18 @@
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Categories", "Index", "Categories", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Submit URLs", "SubmitURL", "URLs", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Browse URLs", "Index", "URLs", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Review URLs", "Review", "URLs", new { area = "" }, new { @class = "nav-link" })</li>
+
+                    @if (Request.IsAuthenticated && User.IsInRole("admin"))
+                    {
+                        <li>@Html.ActionLink("Manage Categories", "Index", "Categories", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Review URLs", "Review", "URLs", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Manage Users", "Index", "Users", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Submit URLs", "SubmitURL", "URLs", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
                 </ul>
                  @Html.Partial("_LoginPartial")
             </div>

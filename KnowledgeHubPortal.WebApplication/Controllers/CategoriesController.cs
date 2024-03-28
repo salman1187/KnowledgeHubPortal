@@ -11,8 +11,13 @@ namespace KnowledgeHubPortal.WebApplication.Controllers
 {
     public class CategoriesController : Controller
     {
-        IKHPortalRepository repo = new KHPortalRepository();  
-        // GET: Categories
+        IKHPortalRepository repo = null;
+        
+        public CategoriesController(IKHPortalRepository repository)
+        {
+            repo = repository;
+        }
+        //[OutputCache(Duration = 60)]
         public ActionResult Index()
         {
             return View(repo.GetCategories());
@@ -42,7 +47,7 @@ namespace KnowledgeHubPortal.WebApplication.Controllers
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return PartialView("_EditCategory", category);
         }
         [HttpPost]
         public ActionResult EditCategory(Category category)
@@ -65,7 +70,7 @@ namespace KnowledgeHubPortal.WebApplication.Controllers
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return PartialView("_DeleteCategory", category);
         }
         [HttpPost]
         public ActionResult DeleteCategory(Category category)

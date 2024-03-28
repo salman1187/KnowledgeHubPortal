@@ -1,15 +1,69 @@
-﻿@{
+﻿@using KnowledgeHubPortal.WebApplication.Models.Domain
+@using KnowledgeHubPortal.WebApplication.Models.Domain.Entities
+@using KnowledgeHubPortal.WebApplication.Models
+
+@{
     ViewBag.Title = "Home Page";
+    var usersList = ViewBag.UsersList as List<ApplicationUser>;
+    var urlsList = ViewBag.UrlsList as List<URL>;
+    var categoriesList = ViewBag.CategoriesList as List<Category>;
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">Knowledge Hub Portal</h1>
-        <p class="lead">This portal is all about sharing a link or url with the community which benefits both link owner and community. </p>
-        @*<p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>*@
+<main class="container mt-5">
+    <section class="row mb-5" aria-labelledby="aspnetTitle">
+        <h1 id="title" class="col-12">Knowledge Hub Portal</h1>
+        <p class="lead col-12">This portal is all about sharing an Article or URL with the community which benefits both link owner and community. </p>
     </section>
 
     <div class="row">
-        
+        <div class="col-lg-6 mb-4">
+            <canvas id="urlUserCategoryChart" width="400" height="400"></canvas>
+        </div>
     </div>
 </main>
+
+<!-- Add Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Retrieve counts from ViewBag
+    var urlCount = @urlsList.Count;
+    var userCount = @usersList.Count;
+    var categoryCount = @categoriesList.Count;
+
+    // Get canvas element
+    var ctx = document.getElementById('urlUserCategoryChart').getContext('2d');
+
+    // Create pie chart
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Articles', 'Users', 'Categories'],
+            datasets: [{
+                label: 'Counts',
+                data: [urlCount, userCount, categoryCount],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>

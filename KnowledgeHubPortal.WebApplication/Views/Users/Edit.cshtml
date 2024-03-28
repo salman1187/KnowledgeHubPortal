@@ -1,0 +1,28 @@
+﻿@model KnowledgeHubPortal.WebApplication.Models.ApplicationUser
+
+
+<div class="container mt-5">
+    <h3 class="text-center">Edit User</h3>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post" action="@Url.Action("Edit", "Users")">
+                @Html.HiddenFor(model => model.Id)
+                <div class="form-group">
+                    <label for="Email" class="control-label">Email</label>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "control-label form-control" })
+                </div>
+
+                <div class="form-group mt-3">
+                    <label for="PhoneNumber" class="control-label">Phone Number</label>
+                    @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "control-label form-control" })
+                </div>
+
+                <div class="form-group mt-3">
+                    <input type="submit" value="Edit" class="btn btn-primary btn-block" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

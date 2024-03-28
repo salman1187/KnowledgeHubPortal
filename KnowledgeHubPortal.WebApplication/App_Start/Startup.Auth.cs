@@ -58,11 +58,11 @@ namespace KnowledgeHubPortal.WebApplication
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "757334838876-0aqu26p81iot53ccn1pntr28s9phrf2k.apps.googleusercontent.com",
+                ClientSecret = "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"
+            });
         }
     }
 }
