@@ -1,0 +1,68 @@
+﻿@model List<AirlineManagementWebApplication.Models.Domain.Entities.Airline>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-9">
+        <h2>Manage Airlines</h2>
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>@TempData["Message"]</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+    </div>
+</div>
+
+@if (Model != null)
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Airline Logo</th>
+                    <th>Airline Name</th>
+                    <th>Airline Code</th>
+                    <th>Airline Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var airline in Model)
+                {
+                    <tr>
+                        <td>
+                            @if (airline.AirlineLogo != null && airline.AirlineLogo.Length > 0)
+                            {
+                                var base64 = Convert.ToBase64String(airline.AirlineLogo);
+                                var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                                <img src="@imgSrc" alt="Airline Logo" width="50" height="50" />
+                            }
+                        </td>
+
+                        <td>@airline.AirlineName</td>
+                        <td>@airline.AirlineCode</td>
+                        <td>@airline.AirlineCountry</td>
+                        <td>
+                            <a href="@Url.Action("Edit", "Airlines", new { id = airline.AirlineId })" class="btn btn-primary">Edit</a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Delete", "Airlines", new { id = airline.AirlineId })" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <a href="@Url.Action("Add", "Airlines")" class="btn btn-success">Add Airline</a>
+    </div>
+}
+else
+{
+    <p>No airlines found.</p>
+}

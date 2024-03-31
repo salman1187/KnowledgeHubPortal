@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        /* Custom CSS */
+        .navbar-nav .nav-link {
+            padding: .5rem 1rem; /* Adjust padding as needed */
+        }
+
+        .dropdown-menu {
+            min-width: auto; /* Adjust as needed */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <!-- Use container-fluid to expand to full width -->
+            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto flex-grow-1">
+                    <!-- Use mr-auto to push the items to the right -->
+                    <li class="nav-item">
+                        @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="manageDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Manage Locations
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="manageDropdown">
+                            <a class="dropdown-item" href="@Url.Action("Index", "Countries", new { area = "" })">Manage Countries</a>
+                            <a class="dropdown-item" href="@Url.Action("Index", "Cities", new { area = "" })">Manage Cities</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Manage Airlines", "Index", "Airlines", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Add Flights", "Add", "Flights", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Add Routes", "Add", "Routes", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="manageSchedulesAndCostsDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Schedule Flights
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="manageSchedulesAndCostsDropdown">
+                            <a class="dropdown-item" href="@Url.Action("Add", "FlightSchedules", new { area = "" })">Add Flight Schedules</a>
+                            <a class="dropdown-item" href="@Url.Action("Add", "FlightCosts", new { area = "" })">Add Flight Costs</a>
+                        </div>
+                    </li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script>
+        $(document).ready(function () {
+            $('.dropdown-toggle').click(function () {
+                var dropdownMenu = $(this).next('.dropdown-menu');
+                dropdownMenu.toggleClass('show');
+                $(this).attr('aria-expanded', dropdownMenu.hasClass('show'));
+            });
+
+            $(document).click(function (e) {
+                var target = $(e.target);
+                if (!target.closest('.dropdown').length) {
+                    $('.dropdown-menu').removeClass('show');
+                    $('.dropdown-toggle').attr('aria-expanded', 'false');
+                }
+            });
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

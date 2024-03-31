@@ -1,0 +1,30 @@
+﻿@model AirlineManagementWebApplication.Models.Domain.ViewModels.AirlineViewModel
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add Airlines</h2>
+
+@using (Html.BeginForm("Add", "Airlines", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.AirlineCode)
+        @Html.TextBoxFor(model => model.AirlineCode, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(model => model.AirlineCode)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AirlineLogoFile)
+        <input type="file" class="form-control" id="airlineLogo" name="AirlineLogoFile" accept="image/*" required>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AirlineName)
+        @Html.TextBoxFor(model => model.AirlineName, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(model => model.AirlineName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AirlineCountry)
+        @Html.TextBoxFor(model => model.AirlineCountry, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(model => model.AirlineCountry)
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+}

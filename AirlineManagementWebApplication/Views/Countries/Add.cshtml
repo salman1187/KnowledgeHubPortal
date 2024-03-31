@@ -1,0 +1,18 @@
+﻿@model AirlineManagementWebApplication.Models.Domain.Entities.Country
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add Country</h2>
+
+<form id="addCountryForm" method="post" action="@Url.Action("Add", "Countries")">
+    @Html.HiddenFor(model => model.CountryId)
+
+    <div class="form-group">
+        <label for="countryName">Country Name</label>
+        <input type="text" class="form-control" id="countryName" name="CountryName" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+

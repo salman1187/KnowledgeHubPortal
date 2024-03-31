@@ -1,0 +1,73 @@
+﻿@model AirlineManagementWebApplication.Models.Domain.ViewModels.FlightScheduleRouteViewModel
+
+@{
+    ViewBag.Title = "Add Flight Schedule";
+}
+
+<h2>Add Flight Schedule</h2>
+
+@using (Html.BeginForm("Add", "FlightSchedules", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.TheFlightSchedule.FlightDepartureDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TheFlightSchedule.FlightDepartureDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+            @Html.ValidationMessageFor(model => model.TheFlightSchedule.FlightDepartureDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TheFlightSchedule.FlightArrivalDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TheFlightSchedule.FlightArrivalDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+            @Html.ValidationMessageFor(model => model.TheFlightSchedule.FlightArrivalDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Route", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TheFlightRoute.RouteId, ViewBag.Routes as SelectList, "Select Route", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TheFlightRoute.RouteId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Flight", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TheFlightRoute.FlightId, new SelectList(Model.Flights, "FlightId", "FlightName"), "Select Flight", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TheFlightRoute.FlightId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TheFlightRoute.DepartureTime, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TheFlightRoute.DepartureTime, new { htmlAttributes = new { @class = "form-control", type = "time" } })
+            @Html.ValidationMessageFor(model => model.TheFlightRoute.DepartureTime, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TheFlightRoute.ArrivalTime, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TheFlightRoute.ArrivalTime, new { htmlAttributes = new { @class = "form-control", type = "time" } })
+            @Html.ValidationMessageFor(model => model.TheFlightRoute.ArrivalTime, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TheFlightRoute.FlightDurationInMins, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TheFlightRoute.FlightDurationInMins, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TheFlightRoute.FlightDurationInMins, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+}

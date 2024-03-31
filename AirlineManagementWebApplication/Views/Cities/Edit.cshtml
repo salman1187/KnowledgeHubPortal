@@ -1,0 +1,28 @@
+﻿@model AirlineManagementWebApplication.Models.Domain.Entities.City
+@{
+    ViewBag.Title = "Edit";
+    var countryList = ViewBag.CountryList as List<AirlineManagementWebApplication.Models.Domain.Entities.Country>;
+}
+
+<h2>Edit City</h2>
+
+<form method="post" action="@Url.Action("Edit", "Cities")">
+    @Html.HiddenFor(model => model.CityId)
+    <div class="form-group">
+        <label for="CityName">City Name</label>
+        <input type="text" class="form-control" id="cityName" name="CityName" value="@Model.CityName" required>
+    </div>
+
+    <div class="form-group">
+        <label for="CityCode">City Code</label>
+        <input type="text" class="form-control" id="cityCode" name="CityCode" value="@Model.CityCode" required>
+    </div>
+
+    <div class="form-group">
+        <label for="CountryId">Country</label>
+        @Html.DropDownListFor(model => model.TheCountry.CountryId, new SelectList(countryList, "CountryId", "CountryName"), "Select Country", new { @class = "form-control", required = "required" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="@Url.Action("Index", "Countries")" class="btn btn-secondary">Cancel</a>
+</form>

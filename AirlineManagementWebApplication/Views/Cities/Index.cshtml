@@ -1,0 +1,54 @@
+﻿@model List<AirlineManagementWebApplication.Models.Domain.Entities.City>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-9">
+
+        <h2>Manage Cities</h2>
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>@TempData["Message"]</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>City Name</th>
+                <th>City Code</th>
+                <th>Country</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var city in Model)
+            {
+                <tr>
+                    <td>@city.CityName</td>
+                    <td>@city.CityCode</td>
+                    <td>@city.TheCountry.CountryName</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Cities", new { id = city.CityId })" class="btn btn-primary">Edit</a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Delete", "Cities", new { id = city.CityId })" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a href="@Url.Action("Add", "Cities")" class="btn btn-success">Add City</a>
+</div>
+

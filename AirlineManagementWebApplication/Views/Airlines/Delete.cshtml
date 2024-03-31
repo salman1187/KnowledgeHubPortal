@@ -1,0 +1,13 @@
+﻿@model AirlineManagementWebApplication.Models.Domain.Entities.Airline
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete Airline</h2>
+
+<form method="post" action="@Url.Action("Delete", "Airlines")">
+    @Html.HiddenFor(model => model.AirlineId)
+    <p>Are you sure you want to delete <strong>@Model.AirlineName</strong> ?</p>
+    <button type="submit" class="btn btn-danger">Yes, delete</button>
+    <a href="@Url.Action("Index", "Airlines")" class="btn btn-secondary">No, cancel</a>
+</form>

@@ -1,0 +1,46 @@
+﻿@model AirlineManagementWebApplication.Models.Domain.Entities.Route
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add Routes</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @ViewBag.SuccessMessage
+    </div>
+}
+
+@using (Html.BeginForm("Add", "Routes", FormMethod.Post, new { @class = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FromCityId, "From City:", new { @class = "control-label" })
+        <div>
+            @Html.DropDownList("FromCityId", new SelectList(ViewBag.Cities, "CityId", "CityName"), "Select From City", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FromCityId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ToCityId, "To City:", new { @class = "control-label" })
+        <div>
+            @Html.DropDownList("ToCityId", new SelectList(ViewBag.Cities, "CityId", "CityName"), "Select To City", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ToCityId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DistanceInKms, "Distance (in kms):", new { @class = "control-label" })
+        <div>
+            @Html.TextBoxFor(model => model.DistanceInKms, new { @class = "form-control", type = "number", step = "0.01" })
+            @Html.ValidationMessageFor(model => model.DistanceInKms, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+}

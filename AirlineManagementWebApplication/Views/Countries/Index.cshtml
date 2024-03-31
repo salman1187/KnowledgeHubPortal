@@ -1,0 +1,48 @@
+﻿@model List<AirlineManagementWebApplication.Models.Domain.Entities.Country>
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-9">
+
+        <h2>Manage Countries</h2>
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>@TempData["Message"]</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Country Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var country in Model)
+            {
+                <tr>
+                    <td>@country.CountryName</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Countries", new { id = country.CountryId })" class="btn btn-primary">Edit</a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Delete", "Countries", new { id = country.CountryId })" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a href="@Url.Action("Add", "Countries")" class="btn btn-success">Add Country</a>
+</div>

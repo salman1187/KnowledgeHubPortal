@@ -1,0 +1,18 @@
+﻿@model AirlineManagementWebApplication.Models.Domain.Entities.Country
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Country</h2>
+
+<form id="editCountryForm" method="post" action="@Url.Action("Edit", "Countries")">
+    @Html.HiddenFor(model => model.CountryId)
+
+    <div class="form-group">
+        <label for="countryName">Country Name</label>
+        <input type="text" class="form-control" id="CountryName" name="CountryName" value="@Model.CountryName" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="@Url.Action("Index", "Countries")" class="btn btn-secondary">Cancel</a>
+</form>
